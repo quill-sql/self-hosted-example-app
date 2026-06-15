@@ -24,9 +24,9 @@ export async function POST(request: Request) {
     const result = await quill.query({
       tenants: body.metadata.tenants?.length
         ? body.metadata.tenants
-        : ['QUILL_ALL_TENANTS'],
+        : ['QUILL_ALL_TENANTS'], // QUILL_ALL_TENANTS allows cross-tenant access. Should only be used for internal deployments
       metadata: body.metadata,
-      adminEnabled: true,
+      adminEnabled: true, // Enables admin usage - should only be used for the admin app internal deployment
     });
 
     return NextResponse.json(result);
