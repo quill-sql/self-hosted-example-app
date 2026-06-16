@@ -1,5 +1,6 @@
 'use client';
-import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
 
 import { AdminProvider } from '@quillsql/admin';
 
@@ -15,6 +16,40 @@ export default function AdminProviderClient({
   queryEndpoint,
 }: AdminProviderClientProps) {
   const router = useRouter();
+  const pathname = usePathname();
+
+  useEffect(() => {
+    window.history.pushState({ backGuard: true }, '', window.location.href);
+  }, [pathname]);
+
+  useEffect(() => {
+    let ignoreNextPopstate = false;
+
+    const onPopState = () => {
+      if (ignoreNextPopstate) {
+        ignoreNextPopstate = false;
+        return;
+      }
+
+      const shouldLeave = window.confirm('Save changes before continuing');
+
+      if (!shouldLeave) {
+        ignoreNextPopstate = true;
+        window.history.go(1);
+        return;
+      }
+
+      ignoreNextPopstate = true;
+      window.history.back();
+    };
+
+    window.addEventListener('popstate', onPopState);
+
+    return () => {
+      window.removeEventListener('popstate', onPopState);
+    };
+  }, []);
+
   return (
     <AdminProvider queryEndpoint={queryEndpoint} publicKey={publicKey}>
       <div style={{ position: 'fixed', top: 8, left: 12, display: 'flex', gap: 6, zIndex: 1000 }}>
