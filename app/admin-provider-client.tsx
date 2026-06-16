@@ -39,7 +39,7 @@ export default function AdminProviderClient({
         return;
       }
 
-      ignoreNextPopstate = true;
+      window.removeEventListener('popstate', onPopState);
       window.history.back();
     };
 
