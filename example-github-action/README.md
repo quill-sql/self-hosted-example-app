@@ -9,7 +9,8 @@ quill promote --force-sync-to-parent-environment --confirm
 ## Setup
 
 1. Copy `.github/workflows/quill-promote.yml` into your repository's `.github/workflows/` directory (at the repo root).
-2. Add these [repository secrets](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions):
+2. Get the client ID and API token for your target environment
+3. Add these [repository secrets](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions):
 
 | Secret | Description |
 |--------|-------------|
