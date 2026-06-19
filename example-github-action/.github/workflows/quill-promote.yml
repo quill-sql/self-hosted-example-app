@@ -1,0 +1,25 @@
+name: Quill Promote
+
+on:
+  workflow_dispatch:
+
+jobs:
+  promote:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Quill CLI
+        run: npm install -g @quillsql/cli
+
+      - name: Configure Quill CLI
+        run: |
+          mkdir -p .quill
+          cat > .quill/config.json <<EOF
+          {
+            "token": "${{ secrets.QUILL_API_TOKEN }}",
+            "clientId": "${{ secrets.QUILL_CLIENT_ID }}",
+            "enableAdminCommands": true
+          }
+          EOF
+
+      - name: Promote to parent environment
+        run: quill promote --force-sync-to-parent-environment --confirm
