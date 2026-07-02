@@ -18,13 +18,13 @@ export default function DashboardPage() {
 }
 
 function CustomDashboard() {
-  const { sections, applyFilters } = useDashboard('<dashboardname>');
+  const { sections, applyFilters } = useDashboard('<dashboard-name>');
 
   if (sections) {
     return (
       <>
         <ChartsSection
-          reports={sections['<dashboardsection>']}
+          reports={sections['<dashboard-section>']}
           applyFilters={applyFilters}
         />
       </>
@@ -40,7 +40,7 @@ function ChartsSection({
   applyFilters: (e: any) => void;
 }) {
   return (
-    <div className="ml-[100px] mt-[100px]">
+    <div className="ml-[100px] mt-[100px] flex gap-[100px]">
       {reports.map((report: any) => (
         <ChartCard
           key={report.id}
@@ -61,7 +61,15 @@ function ChartCard({
 }) {
   const { report, loading } = useDashboardReport(reportId);
   if (loading) {
-    return <div></div>;
+    return (
+      <div className="flex h-[300px] w-[400px] items-center justify-center">
+        <div
+          className="h-8 w-8 animate-spin rounded-full border-4 border-gray-200 border-t-gray-600"
+          role="status"
+          aria-label="Loading chart"
+        />
+      </div>
+    );
   }
   return (
     <div>
