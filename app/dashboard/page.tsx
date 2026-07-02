@@ -9,7 +9,7 @@ import {
 export default function DashboardPage() {
   return (
     <QuillProvider
-      publicKey={'65809ec85375e445ddc1990e'}
+      publicKey={process.env.QUILL_PUBLIC_KEY!}
       queryEndpoint={'/api/quill'}
     >
       <CustomDashboard />
@@ -18,13 +18,13 @@ export default function DashboardPage() {
 }
 
 function CustomDashboard() {
-  const { sections, filters, applyFilters } = useDashboard('dan 3');
+  const { sections, applyFilters } = useDashboard('<dashboardname>');
 
   if (sections) {
     return (
       <>
         <ChartsSection
-          reports={sections['charts']}
+          reports={sections['<dashboardsection>']}
           applyFilters={applyFilters}
         />
       </>
