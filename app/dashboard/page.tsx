@@ -1,10 +1,5 @@
 'use client';
-import {
-  QuillProvider,
-  useDashboard,
-  useDashboardReport,
-  StaticChart,
-} from '@quillsql/react';
+import { QuillProvider, useDashboard, StaticChart } from '@quillsql/react';
 
 export default function DashboardPage() {
   return (
@@ -18,7 +13,7 @@ export default function DashboardPage() {
 }
 
 function CustomDashboard() {
-  const { sections, applyFilters } = useDashboard('<dashboard-name>');
+  const { sections, applyFilters } = useDashboard('<dashboard>');
 
   if (sections) {
     return (
@@ -59,22 +54,10 @@ function ChartCard({
   reportId: string;
   applyFilters: (e: any) => void;
 }) {
-  const { report, loading } = useDashboardReport(reportId);
-  if (loading) {
-    return (
-      <div className="flex h-[300px] w-[400px] items-center justify-center">
-        <div
-          className="h-8 w-8 animate-spin rounded-full border-4 border-gray-200 border-t-gray-600"
-          role="status"
-          aria-label="Loading chart"
-        />
-      </div>
-    );
-  }
   return (
     <div>
       <StaticChart
-        reportId={report!.id}
+        reportId={reportId}
         onClickLegendElement={(e) => {
           applyFilters([{ label: 'Category', value: e.dataKey }]);
         }}
