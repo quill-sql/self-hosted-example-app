@@ -2,7 +2,7 @@
 import { useEffect } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 
-import { AdminProvider } from '@quillsql/admin';
+import { AdminProvider, DashboardManager } from '@quillsql/admin';
 
 type AdminProviderClientProps = {
   children: unknown;
@@ -52,7 +52,16 @@ export default function AdminProviderClient({
 
   return (
     <AdminProvider queryEndpoint={queryEndpoint} publicKey={publicKey}>
-      <div style={{ position: 'fixed', top: 8, left: 12, display: 'flex', gap: 6, zIndex: 1000 }}>
+      <div
+        style={{
+          position: 'fixed',
+          top: 8,
+          left: 12,
+          display: 'flex',
+          gap: 6,
+          zIndex: 1000,
+        }}
+      >
         <button
           onClick={() => {
             router.push('/');
@@ -89,6 +98,40 @@ export default function AdminProviderClient({
         >
           Virtual Tables
         </button>
+      </div>
+      <div
+        aria-hidden={pathname !== '/'}
+        style={{
+          display: pathname === '/' ? 'block' : 'none',
+          width: '100%',
+          height: '100%',
+          overflow: 'auto',
+        }}
+      >
+        <DashboardManager
+          navigateToVirtualTableManager={(view?: string) => {
+            router.push(`/virtual-tables?view=${view ?? ''}`);
+          }}
+          navigateToReportBuilder={(report) => {
+            const params = new URLSearchParams();
+            if (report.reportId) params.set('reportId', report.reportId);
+            if (report.destinationDashboardName) {
+              params.set(
+                'destinationDashboardName',
+                report.destinationDashboardName,
+              );
+            }
+            if (report.virtualQuery) {
+              params.set('virtualQuery', report.virtualQuery);
+            }
+            router.push(`/report-builder?${params.toString()}`);
+          }}
+          containerStyle={{
+            width: '100%',
+            height: '100%',
+            overflow: 'auto',
+          }}
+        />
       </div>
       {children as never}
     </AdminProvider>

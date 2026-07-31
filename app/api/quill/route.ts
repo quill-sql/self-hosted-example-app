@@ -6,6 +6,7 @@ export async function POST(request: Request) {
     privateKey: process.env.QUILL_PRIVATE_KEY!,
     databaseType: DatabaseType.postgresql,
     databaseConnectionString: process.env.DATABASE_URL!,
+    metadataServerURL: 'http://localhost:8080',
   });
 
   if (!quill) {
