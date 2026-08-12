@@ -6,7 +6,7 @@ export async function POST(request: Request) {
     privateKey: process.env.QUILL_PRIVATE_KEY!,
     databaseType: DatabaseType.postgresql,
     databaseConnectionString: process.env.DATABASE_URL!,
-    metadataServerURL: 'https://quill-server-pr-468.fly.dev',
+    metadataServerURL: 'https://quill-server-pr-474.fly.dev',
   });
 
   if (!quill) {
