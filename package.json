@@ -9,7 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@quillsql/admin": "1.8.12",
+    "@quillsql/admin": "1.8.13",
     "@quillsql/node": "0.9.25",
     "@quillsql/react": "2.16.91",
     "next": "16.2.5",
