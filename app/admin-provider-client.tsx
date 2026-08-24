@@ -100,40 +100,40 @@ export default function AdminProviderClient({
         </button>
       </div>
       <div
-        aria-hidden={pathname !== '/'}
         style={{
-          display: pathname === '/' ? 'block' : 'none',
           width: '100%',
-          height: '100%',
-          overflow: 'auto',
+          height: '100vh',
+          overflow: 'hidden',
         }}
       >
-        <DashboardManager
-          navigateToVirtualTableManager={(view?: string) => {
-            router.push(`/virtual-tables?view=${view ?? ''}`);
-          }}
-          navigateToReportBuilder={(report) => {
-            const params = new URLSearchParams();
-            if (report.reportId) params.set('reportId', report.reportId);
-            if (report.destinationDashboardName) {
-              params.set(
-                'destinationDashboardName',
-                report.destinationDashboardName,
-              );
-            }
-            if (report.virtualQuery) {
-              params.set('virtualQuery', report.virtualQuery);
-            }
-            router.push(`/report-builder?${params.toString()}`);
-          }}
-          containerStyle={{
-            width: '100%',
-            height: '100%',
-            overflow: 'auto',
-          }}
-        />
+        {pathname === '/' ? (
+          <DashboardManager
+            navigateToVirtualTableManager={(view?: string) => {
+              router.push(`/virtual-tables?view=${view ?? ''}`);
+            }}
+            navigateToReportBuilder={(report) => {
+              const params = new URLSearchParams();
+              if (report.reportId) params.set('reportId', report.reportId);
+              if (report.destinationDashboardName) {
+                params.set(
+                  'destinationDashboardName',
+                  report.destinationDashboardName,
+                );
+              }
+              if (report.virtualQuery) {
+                params.set('virtualQuery', report.virtualQuery);
+              }
+              router.push(`/report-builder?${params.toString()}`);
+            }}
+            containerStyle={{
+              width: '100%',
+              height: '100%',
+            }}
+          />
+        ) : (
+          (children as never)
+        )}
       </div>
-      {children as never}
     </AdminProvider>
   );
 }
