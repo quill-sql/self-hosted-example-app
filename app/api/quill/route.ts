@@ -4,8 +4,9 @@ import { NextResponse } from 'next/server';
 export async function POST(request: Request) {
   const quill = new Quill({
     privateKey: process.env.QUILL_PRIVATE_KEY!,
-    databaseType: DatabaseType.postgresql,
+    databaseType: DatabaseType.redshift,
     databaseConnectionString: process.env.DATABASE_URL!,
+    metadataServerURL: 'https://quill-server-pr-478.fly.dev',
   });
 
   if (!quill) {
