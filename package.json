@@ -9,9 +9,9 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@quillsql/admin": "1.8.14",
+    "@quillsql/admin": "1.8.16",
     "@quillsql/node": "0.9.25",
-    "@quillsql/react": "2.16.94",
+    "@quillsql/react": "2.16.105",
     "next": "16.2.5",
     "react": "19.2.4",
     "react-dom": "19.2.4"
