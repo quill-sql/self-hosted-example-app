@@ -24,7 +24,12 @@ body {
   width: 200px;
   padding: 12px;
   border-right: 1px solid #e5e5e5;
-  font-family: var(--font-body);
+  color: var(--qa-fg2, #585858);
+  font-family: var(--qa-font, var(--font-body));
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1;
 }
 
 .shell > nav[data-collapsed] {
@@ -38,7 +43,7 @@ body {
   border-radius: 8px;
   padding: 8px;
   color: inherit;
-  font-family: inherit;
+  font: inherit;
   text-decoration: none;
 }
 
@@ -51,7 +56,9 @@ body {
 }
 
 .shell > nav a[aria-current='page'] {
-  font-weight: 600;
+  background: var(--qa-hover, rgb(23 23 23 / 5%));
+  color: var(--qa-fg, #171717);
+  font-weight: 500;
 }
 
 .shell .nav-toggle {
@@ -85,7 +92,7 @@ body {
   margin-top: auto;
 }
 
-.shell main {
+.shell > main {
   display: flex;
   flex: 1;
   min-width: 0;
@@ -93,7 +100,7 @@ body {
   overflow: hidden;
 }
 
-.shell main > * {
+.shell > main > * {
   flex: 1;
   min-width: 0;
   min-height: 0;
