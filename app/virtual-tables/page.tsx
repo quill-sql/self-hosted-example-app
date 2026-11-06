@@ -1,14 +1,10 @@
-"use client";
-
-import { VirtualTableManager } from "@quillsql/admin";
+import { Suspense } from 'react';
+import VirtualTablesClient from './virtual-tables-client';
 
 export default function VirtualTablesPage() {
   return (
-    	<VirtualTableManager
-    	  containerStyle={{
-    	    width: "100vw",
-    	    height: "100vh",
-    	  }}
-    	/>
+    <Suspense fallback={null}>
+      <VirtualTablesClient />
+    </Suspense>
   );
 }

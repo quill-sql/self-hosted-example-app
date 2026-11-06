@@ -9,21 +9,19 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@quillsql/admin": "1.8.16",
-    "@quillsql/node": "0.9.25",
-    "@quillsql/react": "2.16.105",
+    "@quillsql/admin": "file:../quill/frontend/packages/admin",
+    "@quillsql/node": "file:../quill/sdks/node",
+    "@quillsql/react": "file:../quill/frontend/packages/react",
     "next": "16.2.5",
     "react": "19.2.4",
     "react-dom": "19.2.4"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.5",
-    "tailwindcss": "^4",
     "typescript": "^5"
   },
   "engines": {

@@ -2,22 +2,25 @@ import { DatabaseType, Quill } from '@quillsql/node';
 import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
-  const quill = new Quill({
-    privateKey: process.env.QUILL_PRIVATE_KEY!,
-    databaseType: DatabaseType.redshift,
-    databaseConnectionString: process.env.DATABASE_URL!,
-    metadataServerURL: 'https://quill-server-pr-483.fly.dev',
-  });
+  const privateKey = process.env.QUILL_PRIVATE_KEY;
+  const databaseConnectionString = process.env.DATABASE_URL;
 
-  if (!quill) {
+  if (!privateKey || !databaseConnectionString) {
     return NextResponse.json(
       {
-        error:
-          'Missing QUILL_PRIVATE_KEY or QUILL_DATABASE_URL environment variables.',
+        error: 'Missing QUILL_PRIVATE_KEY or DATABASE_URL environment variables.',
       },
       { status: 500 },
     );
   }
+
+  const quill = new Quill({
+    privateKey,
+    databaseType: DatabaseType.postgresql,
+    databaseConnectionString,
+    metadataServerURL:
+      process.env.QUILL_METADATA_SERVER_URL ?? 'http://localhost:8080',
+  });
 
   const body = await request.json();
 
