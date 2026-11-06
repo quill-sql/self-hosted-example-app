@@ -2,20 +2,20 @@
 
 import { DashboardManager } from '@quillsql/admin';
 import { useRouter } from 'next/navigation';
-import { managerStyle, reportBuilderHref } from './report-builder-href';
+import { reportBuilderPath } from './shell';
+
+const fill = { width: '100%', height: '100%' };
 
 export default function HomePage() {
   const router = useRouter();
 
   return (
     <DashboardManager
-      containerStyle={managerStyle}
+      containerStyle={fill}
       navigateToVirtualTableManager={(view?: string) => {
         router.push(view ? `/virtual-tables?view=${view}` : '/virtual-tables');
       }}
-      navigateToReportBuilder={(report) => {
-        router.push(reportBuilderHref(report));
-      }}
+      navigateToReportBuilder={(report) => router.push(reportBuilderPath(report))}
     />
   );
 }
