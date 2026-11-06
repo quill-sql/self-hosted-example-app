@@ -18,7 +18,7 @@ body {
   overflow: hidden;
 }
 
-.shell nav {
+.shell > nav {
   display: flex;
   flex-direction: column;
   width: 200px;
@@ -27,11 +27,11 @@ body {
   font-family: var(--font-body);
 }
 
-.shell nav[data-collapsed] {
+.shell > nav[data-collapsed] {
   width: 64px;
 }
 
-.shell nav a {
+.shell > nav a {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -42,15 +42,15 @@ body {
   text-decoration: none;
 }
 
-.shell nav[data-collapsed] a {
+.shell > nav[data-collapsed] a {
   justify-content: center;
 }
 
-.shell nav[data-collapsed] a span {
+.shell > nav[data-collapsed] a span {
   display: none;
 }
 
-.shell nav a[aria-current='page'] {
+.shell > nav a[aria-current='page'] {
   font-weight: 600;
 }
 
@@ -70,12 +70,12 @@ body {
   cursor: pointer;
 }
 
-.shell nav[data-collapsed] .nav-toggle {
+.shell > nav[data-collapsed] .nav-toggle {
   align-self: center;
 }
 
 @media (hover: hover) {
-  .shell nav a:hover,
+  .shell > nav a:hover,
   .shell .nav-toggle:hover {
     background: #f3f3f3;
   }
