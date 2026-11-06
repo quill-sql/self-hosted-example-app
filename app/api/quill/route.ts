@@ -1,14 +1,39 @@
+import { DatabaseType, Quill } from '@quillsql/node';
 import { NextResponse } from 'next/server';
-import { createQuill, quillRequestArgs, type QuillRequestBody } from './client';
 
 export async function POST(request: Request) {
-  const quill = createQuill();
-  if (quill instanceof NextResponse) return quill;
+  const privateKey = process.env.QUILL_PRIVATE_KEY;
+  const databaseConnectionString = process.env.DATABASE_URL;
 
-  const body = (await request.json()) as QuillRequestBody;
+  if (!privateKey || !databaseConnectionString) {
+    return NextResponse.json(
+      {
+        error:
+          'Missing QUILL_PRIVATE_KEY or DATABASE_URL environment variables.',
+      },
+      { status: 500 },
+    );
+  }
+
+  const quill = new Quill({
+    privateKey,
+    databaseType: DatabaseType.postgresql,
+    databaseConnectionString,
+    metadataServerURL:
+      process.env.QUILL_METADATA_SERVER_URL ?? 'http://localhost:8080',
+  });
+
+  const body = await request.json();
 
   try {
-    const result = await quill.query(quillRequestArgs(body));
+    const result = await quill.query({
+      tenants: body.metadata.tenants?.length
+        ? body.metadata.tenants
+        : ['QUILL_ALL_TENANTS'], // QUILL_ALL_TENANTS allows cross-tenant access. Should only be used for internal deployments
+      metadata: body.metadata,
+      adminEnabled: true, // Enables admin usage - should only be used for the admin app internal deployment
+    });
+
     return NextResponse.json(result);
   } catch (error) {
     return NextResponse.json(
