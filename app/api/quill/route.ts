@@ -1,4 +1,5 @@
-import { DatabaseType, Quill } from '@quillsql/node';
+import { Quill } from '@quillsql/node';
+import { postgres } from '@quillsql/node/postgres';
 import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
@@ -17,8 +18,7 @@ export async function POST(request: Request) {
 
   const quill = new Quill({
     privateKey,
-    databaseType: DatabaseType.postgresql,
-    databaseConnectionString,
+    adapter: postgres(databaseConnectionString),
     metadataServerURL:
       process.env.QUILL_METADATA_SERVER_URL ?? 'http://localhost:8080',
   });
